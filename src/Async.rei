@@ -20,7 +20,7 @@ module Result : {
 };
 
 module Async : {
-    let none : async(unit);
+    let none : async('a);
     let make : 'a => async('a);
     let map : ('a => 'b) => async('a) => async('b);
     let flatten: async(async('a)) => async('a);
@@ -29,7 +29,7 @@ module Async : {
 
 
 module Promise : {
-    let none : promise(unit, unit);
+    let none : promise('x, 'a);
     let resolve : 'a => promise('x, 'a);
     let reject : 'x => promise('x, 'a);
     let map : ('a => 'b) => promise('err, 'a) => promise('err, 'b);
