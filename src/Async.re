@@ -74,6 +74,7 @@ module Result = {
 };
 
 module Async = {
+  let none = (_) => ();
   let make = (a) => ((cb) => cb(a));
   let map = (f, a) => (cb) => a(f >> cb);
   let flatten = (a) => (cb) => a((b) => b(cb));
@@ -81,6 +82,7 @@ module Async = {
 };
 
 module Promise = {
+  let none = (_) => ();
   let resolve = (a) => ((cb) => cb(Ok(a)));
   let reject = (x) => ((cb) => cb(Error(x)));
   let map = (f, a) => (cb) => a((x) => switch x {
