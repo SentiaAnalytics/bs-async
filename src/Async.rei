@@ -29,6 +29,7 @@ module Async : {
 
 
 module Promise : {
+    let fromJs: (unit => Js.Promise.t('a)) => promise('x, 'a);
     let none : promise('x, 'a);
     let resolve : 'a => promise('x, 'a);
     let reject : 'x => promise('x, 'a);

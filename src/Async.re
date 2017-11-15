@@ -81,10 +81,17 @@ module Async = {
   let flatMap = (f, a) => flatten @@ map(f, a);
 };
 
+
 module Promise = {
+  [@bs.send] external _then : Js.Promise.t('a) => ('a => unit) => ('x => unit) => unit = "then";
   let none = (_) => ();
   let resolve = (a) => ((cb) => cb(Ok(a)));
   let reject = (x) => ((cb) => cb(Error(x)));
+
+
+  let fromJs = (f) => (cb) =>
+    _then(f(), (a) => cb(Ok(a)), ((x) => cb(Error(x))));
+
   let map = (f, a) => (cb) => a((x) => switch x {
     | Error(err) => cb @@ Error(err)
     | Ok(value) => cb @@ Ok(f(value))
